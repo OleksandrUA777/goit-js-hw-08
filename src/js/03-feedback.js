@@ -14,12 +14,29 @@ const data = {}
 
 function formChangeHandler(event){
 //Створюю дату та записую в локал сторедж
-    data[event.target.name] = event.target.value
+    data[event.target.name] = event.target.value 
 
     const dataToString = JSON.stringify(data)
 
     localStorage.setItem(DATA_KEY, dataToString)
     
+}
+function formSubmitHandler(event){
+    event.preventDefault();
+    
+//Під час сабміту очистити форму, локал сторедж та вивести у консоль object 
+   
+    console.log(JSON.parse(localStorage.getItem(DATA_KEY)))
+
+    localStorage.removeItem(DATA_KEY)
+
+    event.target.reset();
+
+    //Clearing data object
+    for(key in data){
+        delete data[key]
+    }
+
 }
 function populateData(){
     const savedData = localStorage.getItem(DATA_KEY)
@@ -28,18 +45,11 @@ function populateData(){
 //Якщо є данні у сховищі записати їх у форму
 
     if(savedData){
-        refs.input.value = parsedData.email || ""
-        refs.textarea.value = parsedData.message || ""
+        console.log('parsed data', parsedData)
+console.log('parsed email: ', parsedData.email)
+console.log('parsed message: ', parsedData.message)
+
+        refs.input.value = parsedData.email || " ";
+        refs.textarea.value = parsedData.message || " ";
     }
-}
-function formSubmitHandler(event){
-    event.preventDefault();
-    
-//Під час сабміту очистити форму, локал сторедж та вивести у консоль object 
-
-    console.log(JSON.parse(localStorage.getItem(DATA_KEY)))
-
-    event.target.reset();
-
-    localStorage.removeItem(DATA_KEY)
 }
