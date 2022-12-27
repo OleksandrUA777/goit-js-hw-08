@@ -11,10 +11,13 @@ refs.form.addEventListener('input',throttle(formChangeHandler,500))
 refs.form.addEventListener('submit',formSubmitHandler)
 
 const data = {}
+console.log(data)
 
 function formChangeHandler(event){
 //Створюю дату та записую в локал сторедж
     data[event.target.name] = event.target.value 
+    console.log('data',data)
+    console.log(event)
 
     const dataToString = JSON.stringify(data)
 
@@ -41,14 +44,12 @@ function formSubmitHandler(event){
 function populateData(){
     const savedData = localStorage.getItem(DATA_KEY)
     const parsedData = JSON.parse(savedData)
+console.log('hi')
+
 
 //Якщо є данні у сховищі записати їх у форму
 
     if(savedData){
-        console.log('parsed data', parsedData)
-console.log('parsed email: ', parsedData.email)
-console.log('parsed message: ', parsedData.message)
-
         refs.input.value = parsedData.email || " ";
         refs.textarea.value = parsedData.message || " ";
     }
