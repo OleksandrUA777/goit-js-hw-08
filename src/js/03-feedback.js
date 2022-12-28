@@ -4,7 +4,7 @@ const DATA_KEY = "feedback-form-state";
 const refs = {
  form: document.querySelector('.feedback-form'),
  input: document.querySelector('input[name="email"]'),
- textarea : document.querySelector('textarea[name = "message"]')
+ textarea: document.querySelector('textarea[name = "message"]')
 }
 populateData()
 refs.form.addEventListener('input',throttle(formChangeHandler,500))
@@ -32,10 +32,10 @@ function formChangeHandler(event){
 }
 function formSubmitHandler(event){
     event.preventDefault();
-    
 //Під час сабміту очистити форму, локал сторедж та вивести у консоль object 
-   
+   if(localStorage.getItem(DATA_KEY)){
     console.log(JSON.parse(localStorage.getItem(DATA_KEY)))
+   }
 
     localStorage.removeItem(DATA_KEY)
 
@@ -43,7 +43,7 @@ function formSubmitHandler(event){
 
 
     //Clearing data object
-    for(key in data){
+    for(const key in data){
         delete data[key]
     }
 
